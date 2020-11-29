@@ -9,8 +9,9 @@ const path = require("path");
 
 
 
-const addFile = async (req, res, next) => {
 
+const addFile = async (req, res, next) => {
+    let _file = {};
     try {
         //Validate File
         if (typeof req.file == 'undefined') {
@@ -31,13 +32,27 @@ const addFile = async (req, res, next) => {
                 size: req.file.size,
 
             });
-
+            _file = file;
             const response = await file.save();
+
             return res.json({ file: `${process.env.APP_BASE_URL}/api/files/${file.uuid}` });
 
 
 
         });
+
+        setTimeout(() => {
+            deletefile();
+        }, 1800000);
+
+        const deletefile = async () => {
+            const file = await File.findOne({ uuid: _file.uuid });
+            fs.unlink(`${__dirname}/../${file.path}`, (err) => {
+                console.log(err);
+            })
+        }
+
+
     } catch (error) {
         res.json({ error: error.message });
     }

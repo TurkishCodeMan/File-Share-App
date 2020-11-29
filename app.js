@@ -3,7 +3,7 @@ const app = express();
 require("custom-env").env("stating")
 const bodyparser = require("body-parser")
 const cors = require("cors");
-const path = require("path");
+const fs = require("fs");
 const fileRouter = require("./routes/files")
 
 //Middlewares
