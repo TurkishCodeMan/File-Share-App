@@ -61,7 +61,6 @@ const addFile = async (req, res, next) => {
 
 const downloadFile = async (req, res, next) => {
 
-    const url = `http://localhost:3000/api/files/${req.params.uuid}`
 
     console.log(req.params.uuid)
 
